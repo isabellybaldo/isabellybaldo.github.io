@@ -56,6 +56,13 @@ p { margin: 0 0 16px; }
 a { color: var(--ink); text-underline-offset: 3px; }
 a:hover { color: var(--ink-soft); }
 
+/* keyboard focus ring in the pixel palette */
+a:focus-visible,
+.pixel-btn:focus-visible {
+  outline: 3px solid var(--lavender);
+  outline-offset: 3px;
+}
+
 /* ---- Pixel card: hard stepped shadow, chunky border ---- */
 .pixel-card {
   background: var(--card);
