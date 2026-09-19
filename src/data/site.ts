@@ -4,7 +4,7 @@ export const site = {
   tagline: 'I test in production. On purpose. Usually.',
   about: [
     "Petroleum engineer by degree. I got into tech from nowhere, with no map and no clear reason, and somehow never left.",
-    "I lead a small engineering team and still write the code I ask other people to write.",
+    "I lead a small engineering team and still ship code — old habits, mostly.",
     "Mostly Python, mostly on AWS, increasingly with an LLM somewhere in the loop — usually where I can keep an eye on it.",
     "This site is the cute one. My sense of humor is not.",
   ],
