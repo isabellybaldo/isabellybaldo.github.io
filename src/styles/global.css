@@ -1,0 +1,129 @@
+/* ---- Palette: soft pastels, deadpan ink ---- */
+:root {
+  --cream: #fdf6f0;
+  --ink: #2b2b3a;
+  --ink-soft: #5b5b6e;
+  --pink: #ffb3c6;
+  --lavender: #cdb4f6;
+  --mint: #b8f2cd;
+  --card: #ffffff;
+  --shadow: #2b2b3a;
+
+  --font-pixel: 'Press Start 2P', monospace;
+  --font-body: 'Nunito', system-ui, sans-serif;
+
+  --maxw: 720px;
+  --step: 4px; /* pixel grid unit */
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.7;
+  /* faint pixel-dot texture */
+  background-image: radial-gradient(var(--lavender) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-attachment: fixed;
+}
+
+main {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 48px 20px 80px;
+}
+
+section { margin: 56px 0; }
+
+h1, h2, h3 {
+  font-family: var(--font-pixel);
+  line-height: 1.4;
+  color: var(--ink);
+}
+
+h1 { font-size: 22px; }
+h2 { font-size: 15px; margin-bottom: 20px; }
+h3 { font-size: 12px; }
+
+p { margin: 0 0 16px; }
+
+a { color: var(--ink); text-underline-offset: 3px; }
+a:hover { color: var(--ink-soft); }
+
+/* ---- Pixel card: hard stepped shadow, chunky border ---- */
+.pixel-card {
+  background: var(--card);
+  border: var(--step) solid var(--ink);
+  box-shadow: calc(var(--step) * 2) calc(var(--step) * 2) 0 0 var(--shadow);
+  padding: 20px;
+  border-radius: 0; /* pixels aren't round */
+}
+
+/* ---- Pixel button ---- */
+.pixel-btn {
+  display: inline-block;
+  font-family: var(--font-pixel);
+  font-size: 10px;
+  text-decoration: none;
+  color: var(--ink);
+  background: var(--mint);
+  border: var(--step) solid var(--ink);
+  box-shadow: var(--step) var(--step) 0 0 var(--shadow);
+  padding: 12px 16px;
+  margin: 6px 8px 6px 0;
+  transition: transform 80ms steps(2), box-shadow 80ms steps(2);
+}
+.pixel-btn:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 0 var(--shadow);
+  color: var(--ink);
+}
+.pixel-btn--pink { background: var(--pink); }
+.pixel-btn--lav  { background: var(--lavender); }
+
+/* ---- Small pixel tags (tech chips) ---- */
+.tag {
+  display: inline-block;
+  font-family: var(--font-pixel);
+  font-size: 8px;
+  background: var(--lavender);
+  border: 2px solid var(--ink);
+  padding: 4px 6px;
+  margin: 3px 4px 3px 0;
+}
+
+/* ---- Projects grid ---- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.coming-soon {
+  opacity: 0.85;
+  border-style: dashed;
+}
+
+.muted { color: var(--ink-soft); font-size: 15px; }
+
+footer {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 24px 20px 60px;
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+
+/* pixel-art images render crisp, not blurry */
+img.pixelated { image-rendering: pixelated; }
+
+@media (max-width: 480px) {
+  body { font-size: 17px; }
+  h1 { font-size: 18px; }
+}
