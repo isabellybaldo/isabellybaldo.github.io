@@ -14,18 +14,44 @@ const {
 } = Astro.props;
 ---
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
+    <script is:inline>
+      // Apply saved theme before first paint to avoid a flash. Default: dark.
+      (function () {
+        var saved = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', saved);
+      })();
+    </script>
   </head>
   <body>
+    <button id="theme-toggle" class="theme-toggle pixel-btn" type="button" aria-label="Toggle light and dark mode">☀ light</button>
     <main>
       <slot />
     </main>
     <slot name="footer" />
+    <script is:inline>
+      (function () {
+        var root = document.documentElement;
+        var btn = document.getElementById('theme-toggle');
+        function sync() {
+          var isDark = root.getAttribute('data-theme') !== 'light';
+          btn.textContent = isDark ? '☀ light' : '☾ dark';
+          btn.setAttribute('aria-pressed', String(!isDark));
+        }
+        sync();
+        btn.addEventListener('click', function () {
+          var next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+          root.setAttribute('data-theme', next);
+          localStorage.setItem('theme', next);
+          sync();
+        });
+      })();
+    </script>
   </body>
 </html>

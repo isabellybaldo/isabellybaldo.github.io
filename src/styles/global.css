@@ -1,19 +1,35 @@
-/* ---- Palette: soft pastels, deadpan ink ---- */
+/* ---- Accent palette (constant across themes) ---- */
 :root {
-  --cream: #fdf6f0;
-  --ink: #2b2b3a;
-  --ink-soft: #5b5b6e;
   --pink: #ffb3c6;
   --lavender: #cdb4f6;
   --mint: #b8f2cd;
-  --card: #ffffff;
-  --shadow: #2b2b3a;
+  --on-accent: #2b2b3a; /* text on pastel accents — always dark, always readable */
 
   --font-pixel: 'Press Start 2P', monospace;
   --font-body: 'Nunito', system-ui, sans-serif;
 
   --maxw: 720px;
   --step: 4px; /* pixel grid unit */
+
+  /* ---- Dark theme (default) ---- */
+  --bg: #1e1b2e;
+  --text: #f4eeff;
+  --text-soft: #b8afd6;
+  --card: #2a2640;
+  --border: #f4eeff;
+  --shadow: #100d1c;
+  --dot: rgba(205, 180, 246, 0.15);
+}
+
+/* ---- Light theme ---- */
+[data-theme='light'] {
+  --bg: #fdf6f0;
+  --text: #2b2b3a;
+  --text-soft: #5b5b6e;
+  --card: #ffffff;
+  --border: #2b2b3a;
+  --shadow: #2b2b3a;
+  --dot: #cdb4f6;
 }
 
 * { box-sizing: border-box; }
@@ -22,15 +38,16 @@ html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
-  background: var(--cream);
-  color: var(--ink);
+  background: var(--bg);
+  color: var(--text);
   font-family: var(--font-body);
   font-size: 18px;
   line-height: 1.7;
   /* faint pixel-dot texture */
-  background-image: radial-gradient(var(--lavender) 1px, transparent 1px);
+  background-image: radial-gradient(var(--dot) 1px, transparent 1px);
   background-size: 24px 24px;
   background-attachment: fixed;
+  transition: background-color 120ms steps(2), color 120ms steps(2);
 }
 
 main {
@@ -44,7 +61,7 @@ section { margin: 56px 0; }
 h1, h2, h3 {
   font-family: var(--font-pixel);
   line-height: 1.4;
-  color: var(--ink);
+  color: var(--text);
 }
 
 h1 { font-size: 22px; }
@@ -53,12 +70,13 @@ h3 { font-size: 12px; }
 
 p { margin: 0 0 16px; }
 
-a { color: var(--ink); text-underline-offset: 3px; }
-a:hover { color: var(--ink-soft); }
+a { color: var(--text); text-underline-offset: 3px; }
+a:hover { color: var(--text-soft); }
 
 /* keyboard focus ring in the pixel palette */
 a:focus-visible,
-.pixel-btn:focus-visible {
+.pixel-btn:focus-visible,
+.theme-toggle:focus-visible {
   outline: 3px solid var(--lavender);
   outline-offset: 3px;
 }
@@ -66,7 +84,7 @@ a:focus-visible,
 /* ---- Pixel card: hard stepped shadow, chunky border ---- */
 .pixel-card {
   background: var(--card);
-  border: var(--step) solid var(--ink);
+  border: var(--step) solid var(--border);
   box-shadow: calc(var(--step) * 2) calc(var(--step) * 2) 0 0 var(--shadow);
   padding: 20px;
   border-radius: 0; /* pixels aren't round */
@@ -78,29 +96,40 @@ a:focus-visible,
   font-family: var(--font-pixel);
   font-size: 10px;
   text-decoration: none;
-  color: var(--ink);
+  color: var(--on-accent);
   background: var(--mint);
-  border: var(--step) solid var(--ink);
+  border: var(--step) solid var(--border);
   box-shadow: var(--step) var(--step) 0 0 var(--shadow);
   padding: 12px 16px;
   margin: 6px 8px 6px 0;
+  cursor: pointer;
   transition: transform 80ms steps(2), box-shadow 80ms steps(2);
 }
 .pixel-btn:hover {
   transform: translate(2px, 2px);
   box-shadow: 2px 2px 0 0 var(--shadow);
-  color: var(--ink);
+  color: var(--on-accent);
 }
 .pixel-btn--pink { background: var(--pink); }
 .pixel-btn--lav  { background: var(--lavender); }
+
+/* ---- Theme toggle (fixed top-right) ---- */
+.theme-toggle {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 10;
+  font-size: 9px;
+}
 
 /* ---- Small pixel tags (tech chips) ---- */
 .tag {
   display: inline-block;
   font-family: var(--font-pixel);
   font-size: 8px;
+  color: var(--on-accent);
   background: var(--lavender);
-  border: 2px solid var(--ink);
+  border: 2px solid var(--border);
   padding: 4px 6px;
   margin: 3px 4px 3px 0;
 }
@@ -109,22 +138,53 @@ a:focus-visible,
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 20px;
+  gap: 24px;
 }
 
-.coming-soon {
-  opacity: 0.85;
-  border-style: dashed;
+/* per-card accent identity */
+.project { --card-accent: var(--lavender); }
+.accent-pink     { --card-accent: var(--pink); }
+.accent-mint     { --card-accent: var(--mint); }
+.accent-lavender { --card-accent: var(--lavender); }
+
+/* pixel-art thumbnail banner, bleeding to the card edges */
+.project__thumb {
+  position: relative;
+  background: var(--card-accent);
+  border-bottom: var(--step) solid var(--border);
+  margin: -20px -20px 16px;
+  padding: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.project__thumb img { display: block; width: 96px; height: 96px; }
+
+.badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-family: var(--font-pixel);
+  font-size: 8px;
+  background: var(--bg);
+  color: var(--text);
+  border: 2px solid var(--border);
+  padding: 3px 5px;
 }
 
-.muted { color: var(--ink-soft); font-size: 15px; }
+.project__tracks { font-weight: 700; margin-bottom: 8px; }
+.project__tags { margin-top: 8px; }
+
+.coming-soon { opacity: 0.92; }
+
+.muted { color: var(--text-soft); font-size: 15px; }
 
 footer {
   max-width: var(--maxw);
   margin: 0 auto;
   padding: 24px 20px 60px;
   font-size: 14px;
-  color: var(--ink-soft);
+  color: var(--text-soft);
 }
 
 /* pixel-art images render crisp, not blurry */
