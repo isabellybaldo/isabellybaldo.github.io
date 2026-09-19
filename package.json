@@ -10,8 +10,12 @@
     "check": "astro check"
   },
   "dependencies": {
-    "astro": "^5.0.0",
+    "@fontsource/nunito": "^5.1.0",
     "@fontsource/press-start-2p": "^5.1.0",
-    "@fontsource/nunito": "^5.1.0"
+    "astro": "^5.0.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "typescript": "^5.9.3"
   }
 }
