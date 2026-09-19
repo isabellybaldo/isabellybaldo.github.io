@@ -1,0 +1,11 @@
+---
+import { site } from '../data/site.ts';
+---
+<section id="hero" class="pixel-card">
+  <h1>{site.name}</h1>
+  <p class="muted">{site.role}</p>
+  <p>{site.tagline}</p>
+  <div>
+    {site.tech.map((t) => <span class="tag">{t}</span>)}
+  </div>
+</section>
