@@ -10,7 +10,7 @@ export type Project = {
   comingSoon: boolean;
 };
 
-// Real repos are private for now, so these ship as "coming soon".
+// Entries without an href ship as "coming soon" (their repos are private).
 // To make one live: set comingSoon: false and add href — one-line edit.
 export const projects: Project[] = [
   {
@@ -32,5 +32,16 @@ export const projects: Project[] = [
     accent: 'mint',
     thumb: '/thumbs/isoca-spot.svg',
     comingSoon: true,
+  },
+  {
+    slug: 'isoca-radar',
+    title: 'isoca-radar',
+    tracks: 'Arbitrage on Polymarket, on paper.',
+    blurb: 'A read-only lab that watched every order book for baskets priced under a dollar, and paper-traded them at six latencies. It never placed an order; it did teach me what a CPU limit is.',
+    tech: ['Rust', 'TypeScript', 'WebAssembly'],
+    accent: 'lavender',
+    thumb: '/thumbs/isoca-radar.svg',
+    href: 'https://radar.isoca.space',
+    comingSoon: false,
   },
 ];
