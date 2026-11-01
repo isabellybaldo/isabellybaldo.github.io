@@ -24,4 +24,15 @@ export const projects: Project[] = [
     href: 'https://radar.isoca.space',
     comingSoon: false,
   },
+  {
+    slug: 'isoca-play',
+    title: 'isoca-play',
+    tracks: 'Mahjong and sudoku, for one player on a phone.',
+    blurb: 'Two pixel-art games behind a single password, with no ads, no trackers and no requests to anyone else. The tile art is original and lives in the repo; the tips name the sudoku move instead of just pointing at it, and only when asked.',
+    tech: ['TypeScript', 'React', 'Python'],
+    accent: 'mint',
+    thumb: '/thumbs/isoca-play.svg',
+    href: 'https://github.com/isabellybaldo/isoca-play',
+    comingSoon: false,
+  },
 ];
